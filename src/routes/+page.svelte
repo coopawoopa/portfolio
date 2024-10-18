@@ -9,6 +9,8 @@
 	import Woah from '$lib/components/ui/typetext/woah.svelte';
 	import * as Accordion from '$lib/components/ui/accordion';
 	import Projectcard from '$lib/components/ui/projectcard/projectcard.svelte';
+	import { AspectRatio } from '$lib/components/ui/aspect-ratio';
+
 	let ckeyFeatures = [
 		{
 			group: [
@@ -612,8 +614,11 @@
 		flex-direction: column;
 		background-color: #f9f9f900;
 		padding: 20px;
-		min-width: 500px;
+		min-width: 300px;
 		align-items: center;
+		width: 100%;
+		max-width: 500px;
+		margin: auto;
 	}
 
 	.header {

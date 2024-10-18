@@ -92,6 +92,7 @@
 		position: relative;
 		overflow: hidden;
 		background: #1e1e1e;
+		aspect-ratio: 16 / 9;
 	}
 
 	.card:hover {
