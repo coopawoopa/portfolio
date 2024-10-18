@@ -78,6 +78,7 @@
 <style>
 	.card {
 		min-height: 300px;
+		min-width: 100px;
 		border-radius: 16px;
 		margin: 16px;
 		border: 2px solid transparent;
@@ -177,20 +178,5 @@
 	.button button:hover {
 		background-color: #e6005c;
 		transform: translateY(-2px);
-	}
-
-	/* Responsive adjustments */
-	@media (max-width: 768px) {
-		.card {
-			min-height: 250px;
-		}
-
-		.header {
-			height: 80px;
-		}
-
-		.thumbnail {
-			height: 150px;
-		}
 	}
 </style>
