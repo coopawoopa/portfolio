@@ -87,7 +87,7 @@
 								<div class="p-4">
 									<h4 class="text-lg font-semibold">Overview</h4>
 									<p class="font-normal leading-7 text-gray-300">{overview}</p>
-									<Toaster position="top-right" />
+
 									<div class="mt-4 flex justify-end space-x-2">
 										<Button
 											style=""
@@ -433,7 +433,7 @@
 							<div class="p-4">
 								<h4 class="text-lg font-semibold">Overview</h4>
 								<p class="font-normal leading-7 text-gray-300">{overview}</p>
-								<Toaster position="top-right" />
+
 								<div class="mt-4 flex justify-end space-x-2">
 									<Button
 										style=""
