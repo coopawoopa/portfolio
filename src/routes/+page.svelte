@@ -12,6 +12,7 @@
 	import { AspectRatio } from '$lib/components/ui/aspect-ratio';
 	import DivHover from '$lib/components/ui/DivHover.svelte/DivHover.svelte';
 	import { mediaQuery } from 'svelte-legos';
+	import GradualSpacing from '$lib/components/ui/GradualSpacing/GradualSpacing.svelte';
 
 	const isDesktop = mediaQuery('(min-width: 768px)'); // Media query to detect screen size
 
@@ -557,7 +558,6 @@
 	<div class="container">
 		<header class="header">
 			<Typetext />
-			<h2 class="subtitle">Portfolio</h2>
 		</header>
 		<Separator class="my-4" />
 		<Carousel.Root
@@ -596,9 +596,7 @@
 					>
 				</h4>
 			</div>
-			<div
-				class="m-1 flex items-center justify-between gap-3 rounded-full "
-			>
+			<div class="m-1 flex items-center justify-between gap-3 rounded-full">
 				<h4 class="m-auto font-mono">
 					<a href="https://github.com/coopawoopa" target="_blank">GitHub</a>
 				</h4>
@@ -649,9 +647,10 @@
 	}
 
 	.header {
-		text-align: center;
+		margin-left: 7%;
+		text-align: left;
+		align-self: start;
 		margin-bottom: 20px;
-		position: relative;
 		z-index: 1;
 		transition:
 			transform 0.2s ease-in-out,

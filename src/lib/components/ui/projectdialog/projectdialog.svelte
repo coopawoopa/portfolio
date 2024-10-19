@@ -76,7 +76,6 @@
 		</Dialog.Trigger>
 		<Dialog.Content class="bg-opacity-0	backdrop-blur-lg sm:max-w-[80%]">
 			<!-- svelte-ignore a11y-autofocus -->
-			<input class="fixed left-0 top-0 h-0 w-0" type="checkbox" autofocus={true} />
 			<div class="dialog-content" bind:this={dialogContent}>
 				<!-- Dialog content goes here -->
 				<div class="container">

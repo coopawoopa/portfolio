@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { spring } from 'svelte/motion';
 	import { fade } from 'svelte/transition';
+	import { Toaster, toast } from 'svelte-sonner';
 
 	let width = spring(120);
 	let height = spring(30);
@@ -35,6 +36,7 @@
 			}
 		};
 	};
+
 	let avatars = [
 		{
 			src: 'https://i.pinimg.com/564x/ea/8b/06/ea8b06307f2f6f0a6f6041d3f492d013.jpg',
@@ -43,8 +45,22 @@
 			name: 'Saloni'
 		}
 	];
+
+	// Function to copy email to clipboard
+	function copyToClipboard(text: string) {
+		navigator.clipboard.writeText(text).then(
+			() => {
+				toast.success('Email copied to clipboard successfully!');
+				console.log('Email copied to clipboard successfully!');
+			},
+			(err) => {
+				console.error('Could not copy text: ', err);
+			}
+		);
+	}
 </script>
 
+<Toaster position="top-right" />
 <div class="flex items-center justify-center">
 	<div
 		id="animationElement"
@@ -58,6 +74,8 @@
 					{#each avatars as { src, alt, fallback, name }}
 						<div
 							class="m-1 flex items-center justify-between gap-3 rounded-full border border-primary p-1 hover:bg-primary/10"
+							on:click={() => copyToClipboard('a.f.1352@mail.ru')}
+							style="cursor: pointer;"
 						>
 							<h4 class="m-auto font-mono">{'a.f.1352@mail.ru'}</h4>
 						</div>
