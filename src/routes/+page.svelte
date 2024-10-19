@@ -10,6 +10,10 @@
 	import * as Accordion from '$lib/components/ui/accordion';
 	import Projectcard from '$lib/components/ui/projectcard/projectcard.svelte';
 	import { AspectRatio } from '$lib/components/ui/aspect-ratio';
+	import DivHover from '$lib/components/ui/DivHover.svelte/DivHover.svelte';
+	import { mediaQuery } from 'svelte-legos';
+
+	const isDesktop = mediaQuery('(min-width: 768px)'); // Media query to detect screen size
 
 	let ckeyFeatures = [
 		{
@@ -129,10 +133,11 @@
 			thumbnail: 'https://i.postimg.cc/2yKFT4B2/Screenshot-2024-10-04-011044.png',
 			note: 'This is a project is currently in the works and is planned to be released as a real website.',
 			noteColor: '#5c1c2c',
-			isSpecial: 'no'
+			isSpecial: 'no',
+			date: '2024'
 		},
 		{
-			title: '2024 - Terrain Layout Generator',
+			title: 'Terrain Layout Generator',
 			overview:
 				'The project was developed to address the need for automating the creation of large-scale, balanced, and varied 3D terrain maps in video games, specifically focusing on the challenges associated with manual content production in the gaming industry',
 			videoPath: '',
@@ -218,10 +223,11 @@
 			engine: 'Unity',
 			note: '',
 			noteColor: '#ff0266',
-			isSpecial: 'no'
+			isSpecial: 'no',
+			date: '2024'
 		},
 		{
-			title: '2023/24 - WFC Horror Implementation',
+			title: 'WFC Horror Implementation',
 			overview:
 				'This is a Player and Card Generator for a Potential Team Management Tycoon Game, also has manual UI integration in GML.',
 			videoPath: '',
@@ -299,10 +305,11 @@
 			engine: 'Unity',
 			note: '',
 			noteColor: '#ff0266',
-			isSpecial: 'no'
+			isSpecial: 'no',
+			date: '2023/24'
 		},
 		{
-			title: '2022 - Grid-based strategy',
+			title: 'Grid-based strategy',
 			overview:
 				'This is a Player and Card Generator for a Potential Team Management Tycoon Game, also has manual UI integration in GML.',
 			videoPath: '',
@@ -367,10 +374,11 @@
 			engine: 'Unity',
 			note: '',
 			noteColor: '#ff0266',
-			isSpecial: 'no'
+			isSpecial: 'no',
+			date: '2022'
 		},
 		{
-			title: '2022/24 - Trading Card Game',
+			title: 'Trading Card Game',
 			overview:
 				'This trading card game was designed by me as a fun project to learn more about game design, specifically table top. The point of the game is that the players do not require anything but the cards at hand to play, and each game would consist of a Draft round similar to clash royale. This eliminates of the main card problem I find in games such as MTG and Pokemon where the cards are not made to be globally played.',
 			videoPath: '',
@@ -378,10 +386,11 @@
 			thumbnail: 'https://i.postimg.cc/q7cfTgdP/Lester-4x.png',
 			note: '',
 			noteColor: '#ff0266',
-			isSpecial: 'yes'
+			isSpecial: 'yes',
+			date: '2022/24'
 		},
 		{
-			title: '2023 - Genetic WFC',
+			title: ' Genetic WFC',
 			overview:
 				'I Developed an automated system that uses genetic algorithms to optimize adjacency and frequency rules for large-scale pattern and layout generation.',
 			videoPath: '',
@@ -418,10 +427,11 @@
 			engine: 'Python',
 			note: '',
 			noteColor: '#ff0266',
-			isSpecial: 'no'
+			isSpecial: 'no',
+			date: '2023'
 		},
 		{
-			title: '2017-2020 - GMS Projects',
+			title: 'GMS Projects',
 			overview:
 				'This is a set of projects I had developed using Game Maker Studio, with programing done in the native GML. These are not all, but some of the projects I have worked on.',
 			videoPath: '',
@@ -537,7 +547,8 @@
 			engine: 'GMS',
 			note: '',
 			noteColor: '#ff0266',
-			isSpecial: 'no'
+			isSpecial: 'no',
+			date: '2017-2020'
 		}
 	];
 </script>
@@ -554,7 +565,7 @@
 				align: 'start',
 				loop: true
 			}}
-			class="w-full max-w-[90%]"
+			class="mx-auto w-[90%]"
 		>
 			<Carousel.Content class="-ml-2 md:-ml-4">
 				{#each projects as project}
@@ -569,15 +580,31 @@
 		</Carousel.Root>
 		<Separator class="my-4" style="margin-top: 100px" />
 	</div>
-
-	<div class="my-details">
-		<h3>Contact Me</h3>
-		<p>Email: a.f.1352@mail.ru</p>
-		<p>
-			<a href="https://www.linkedin.com/in/fedor-agafonov-93579b230/" target="_blank">LinkedIn</a>
-		</p>
-		<p><a href="https://github.com/coopawoopa" target="_blank">GitHub</a></p>
-	</div>
+	{#if $isDesktop}
+		<div class="my-details">
+			<DivHover />
+		</div>
+	{:else}
+		<div class="my-details">
+			<div class="m-1 flex items-center justify-between gap-3 rounded-full">
+				<h4 class="m-auto font-mono">{'a.f.1352@mail.ru'}</h4>
+			</div>
+			<div class="m-1 flex items-center justify-between gap-3 rounded-full">
+				<h4 class="m-auto font-mono">
+					<a href="https://www.linkedin.com/in/fedor-agafonov-93579b230/" target="_blank"
+						>LinkedIn</a
+					>
+				</h4>
+			</div>
+			<div
+				class="m-1 flex items-center justify-between gap-3 rounded-full "
+			>
+				<h4 class="m-auto font-mono">
+					<a href="https://github.com/coopawoopa" target="_blank">GitHub</a>
+				</h4>
+			</div>
+		</div>
+	{/if}
 </div>
 
 <style>

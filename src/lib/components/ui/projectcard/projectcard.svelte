@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { Motion, useMotionTemplate, useMotionValue } from 'svelte-motion';
 	import Projectdialog from '$lib/components/ui/projectdialog/projectdialog.svelte';
 	import Proximityglow from '$lib/components/ui/proximityglow/proximityglow.svelte';
+
 	export let title;
 	export let overview;
 	export let videoPath;
@@ -9,35 +11,41 @@
 	export let note;
 	export let isSpecial;
 	export let noteColor;
+	export let date;
 
-	// Variables for tilt and scale effects
 	let cardElement: HTMLDivElement;
+	let mouseX = useMotionValue(0);
+	let mouseY = useMotionValue(0);
 	let rotationX = 0;
 	let rotationY = 0;
 	let scale = 1;
 	let shadowX = 0;
 	let shadowY = 0;
 
+	let background = useMotionTemplate`radial-gradient(200px circle at ${mouseX}px ${mouseY}px, rgba(51, 51, 51, 0.4), transparent 80%)`;
+
 	function handleMouseMove(event: { clientX: number; clientY: number }) {
-		const rect = cardElement.getBoundingClientRect();
-		const cardWidth = rect.width;
-		const cardHeight = rect.height;
-		const centerX = rect.left + cardWidth / 2;
-		const centerY = rect.top + cardHeight / 2;
-		const mouseX = event.clientX - centerX;
-		const mouseY = event.clientY - centerY;
+		if (window.innerWidth > 768) {
+			const rect = cardElement.getBoundingClientRect();
+			const cardWidth = rect.width;
+			const cardHeight = rect.height;
+			const centerX = rect.left + cardWidth / 2;
+			const centerY = rect.top + cardHeight / 2;
+			const mouseXVal = event.clientX - centerX;
+			const mouseYVal = event.clientY - centerY;
 
-		const maxRotation = 10; // Maximum rotation in degrees
-		rotationY = (mouseX / (cardWidth / 2)) * maxRotation;
-		rotationX = -(mouseY / (cardHeight / 2)) * maxRotation;
+			const maxRotation = 10;
+			rotationY = (mouseXVal / (cardWidth / 2)) * maxRotation;
+			rotationX = -(mouseYVal / (cardHeight / 2)) * maxRotation;
+			scale = 1.02;
 
-		// Scale effect
-		scale = 1.02;
+			const maxShadow = 30;
+			shadowX = (mouseXVal / (cardWidth / 2)) * maxShadow;
+			shadowY = (mouseYVal / (cardHeight / 2)) * maxShadow;
 
-		// Shadow effect
-		const maxShadow = 30; // Maximum shadow offset
-		shadowX = (mouseX / (cardWidth / 2)) * maxShadow;
-		shadowY = (mouseY / (cardHeight / 2)) * maxShadow;
+			mouseX.set(event.clientX - rect.left);
+			mouseY.set(event.clientY - rect.top);
+		}
 	}
 
 	function handleMouseLeave() {
@@ -51,34 +59,60 @@
 
 <Proximityglow>
 	<div
-		class="card"
+		class="card group relative h-[500px] max-w-[350px] overflow-hidden rounded-xl bg-neutral-950"
 		bind:this={cardElement}
 		on:mousemove={handleMouseMove}
 		on:mouseleave={handleMouseLeave}
-		style="
-			transform: perspective(800px) rotateX({rotationX}deg) rotateY({rotationY}deg) scale({scale});
-			transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-			box-shadow: {-shadowX}px {shadowY}px 50px rgba(0, 0, 0, 0.2);
-		"
+		style="transform: perspective(800px) rotateX({rotationX}deg) rotateY({rotationY}deg) scale({scale});
+			 transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+			 box-shadow: {shadowX}px {shadowY}px 50px rgba(0, 0, 0, 0.2);"
 	>
-		<div class="header">
-			<h3
-				class="flex h-full scroll-m-20 items-center justify-center text-2xl font-semibold tracking-tight"
-			>
-				{title}
-			</h3>
-		</div>
-		<img src={thumbnail} alt="Project Thumbnail" class="thumbnail" />
-		<div class="button">
-			<Projectdialog {title} {overview} {videoPath} {keyFeatures} {note} {isSpecial} {noteColor} />
+		<div
+			class="absolute right-5 top-0 h-px w-80 bg-gradient-to-l from-transparent via-white/30 via-10% to-transparent"
+		/>
+		<Motion
+			style={{
+				background
+			}}
+			let:motion
+		>
+			<div
+				use:motion
+				class="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+			></div>
+		</Motion>
+		<div class="relative flex h-full flex-col gap-3 rounded-xl border border-white/10 px-4 py-5">
+			<div class="flex-grow space-y-2">
+				<img
+					src={thumbnail}
+					alt="Project Thumbnail"
+					class="h-52 w-full rounded-xl object-cover opacity-75"
+				/>
+				<div class="flex flex-row items-center justify-between pt-2">
+					<h3 class="text-xl font-semibold text-neutral-200">{title}</h3>
+					<p class="select-none text-[13px] text-neutral-300">{date}</p>
+				</div>
+				<p class="line-clamp-3 pb-3 text-sm leading-[1.5] text-neutral-400">
+					{overview.length > 100 ? `${overview.slice(0, 100)}...` : overview}
+				</p>
+			</div>
+			<div class="button">
+				<Projectdialog
+					{title}
+					{overview}
+					{videoPath}
+					{keyFeatures}
+					{note}
+					{isSpecial}
+					{noteColor}
+				/>
+			</div>
 		</div>
 	</div>
 </Proximityglow>
 
 <style>
 	.card {
-		min-height: 300px;
-		min-width: 100px;
 		border-radius: 16px;
 		margin: 16px;
 		border: 2px solid transparent;
@@ -86,65 +120,36 @@
 			transform 0.1s ease-out,
 			box-shadow 0.2s ease-out,
 			border 0.3s ease-out;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-		display: flex;
-		position: relative;
 		overflow: hidden;
 		background: #1e1e1e;
-		aspect-ratio: 16 / 9;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		position: relative;
+		height: 500px;
 	}
 
 	.card:hover {
 		border-image: linear-gradient(45deg, #ff0266, #ff5959) 1;
 	}
 
-	.header {
-		width: 100%;
-		height: 100px;
-		background: linear-gradient(-45deg, #000000, #040303, #0f1315, #111716);
-		background-size: 400% 400%;
-		animation: gradient 15s ease infinite;
-		padding: 20px;
-		border-top-left-radius: 16px;
-		border-top-right-radius: 16px;
-		text-align: center;
-		font-size: 1.5rem;
+	.button button {
+		background-color: #ff0266;
 		color: #ffffff;
+		border: none;
+		padding: 10px 20px;
+		border-radius: 8px;
+		cursor: pointer;
+		transition:
+			background-color 0.2s,
+			transform 0.2s;
 	}
 
-	@keyframes gradient {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
+	.button button:hover {
+		background-color: #e6005c;
+		transform: translateY(-2px);
 	}
 
-	.thumbnail {
-		width: 100%;
-		height: 200px;
-		object-fit: cover;
-		transition: transform 0.2s ease-out;
-	}
-
-	.card:hover .thumbnail {
-		transform: scale(1.02);
-	}
-
-	.button {
-		position: absolute;
-		bottom: 20px;
-		right: 20px;
-		z-index: 100;
-	}
-
-	/* Add a subtle glow effect on hover */
 	.card::before {
 		content: '';
 		position: absolute;
@@ -162,21 +167,10 @@
 		transform: scale(1);
 	}
 
-	/* Optional: Add interactive tilt to the button */
-	.button button {
-		background-color: #ff0266;
-		color: #ffffff;
-		border: none;
-		padding: 10px 20px;
-		border-radius: 8px;
-		cursor: pointer;
-		transition:
-			background-color 0.2s,
-			transform 0.2s;
-	}
-
-	.button button:hover {
-		background-color: #e6005c;
-		transform: translateY(-2px);
+	.line-clamp-3 {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 </style>

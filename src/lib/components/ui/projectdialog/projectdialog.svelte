@@ -61,10 +61,20 @@
 {#if $isDesktop}
 	<!-- Dialog for Desktop -->
 	<Dialog.Root bind:open>
-		<Dialog.Trigger class={buttonVariants({ variant: 'outline', size: 'lg' })}>
-			See Project
+		<Dialog.Trigger
+			class={(buttonVariants({ variant: 'outline', size: 'lg' }),
+			'relative inline-flex h-full w-full overflow-hidden rounded-xl p-px')}
+		>
+			<span
+				class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#c2c2c2_0%,#505050_50%,#bebebe_100%)]"
+			/>
+			<span
+				class="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-[11px] bg-neutral-900 px-4 py-2 text-sm font-medium text-gray-50 backdrop-blur-3xl"
+			>
+				See Project
+			</span>
 		</Dialog.Trigger>
-		<Dialog.Content class="sm:max-w-[80%]">
+		<Dialog.Content class="bg-opacity-0	backdrop-blur-lg sm:max-w-[80%]">
 			<!-- svelte-ignore a11y-autofocus -->
 			<input class="fixed left-0 top-0 h-0 w-0" type="checkbox" autofocus={true} />
 			<div class="dialog-content" bind:this={dialogContent}>
@@ -413,8 +423,7 @@
 		<Dialog.Trigger class={buttonVariants({ variant: 'outline', size: 'lg' })}>
 			See Project
 		</Dialog.Trigger>
-		<Drawer.Content>
-			<input class="fixed left-0 top-0 h-0 w-0" type="checkbox" autofocus={true} />
+		<Drawer.Content class="bg-opacity-0	backdrop-blur-lg">
 			<div class="dialog-content" bind:this={dialogContent}>
 				<!-- Dialog content goes here -->
 				<div class="container">
