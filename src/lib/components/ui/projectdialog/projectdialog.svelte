@@ -419,20 +419,30 @@
 {:else}
 	<!-- Drawer for Mobile -->
 	<Drawer.Root bind:open>
-		<Dialog.Trigger class={buttonVariants({ variant: 'outline', size: 'lg' })}>
-			See Project
+		<Dialog.Trigger
+			class={(buttonVariants({ variant: 'outline', size: 'lg' }),
+			'relative inline-flex h-full w-full overflow-hidden rounded-xl p-px')}
+		>
+			<span
+				class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#c2c2c2_0%,#505050_50%,#bebebe_100%)]"
+			/>
+			<span
+				class="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-[11px] bg-neutral-900 px-4 py-2 text-sm font-medium text-gray-50 backdrop-blur-3xl"
+			>
+				See Project
+			</span>
 		</Dialog.Trigger>
 		<Drawer.Content class="bg-opacity-0	backdrop-blur-lg">
 			<div class="dialog-content" bind:this={dialogContent}>
 				<!-- Dialog content goes here -->
 				<div class="container">
-					<h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{title}</h1>
+					<h1 class="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-5xl">{title}</h1>
 					<!-- Overview and other details -->
 					<div class="card">
 						<div class="overview">
 							<div class="p-4">
-								<h4 class="text-lg font-semibold">Overview</h4>
-								<p class="font-normal leading-7 text-gray-300">{overview}</p>
+								<h4 class="text-md font-semibold">Overview</h4>
+								<p class="text-sm font-normal leading-7 text-gray-300">{overview}</p>
 
 								<div class="mt-4 flex justify-end space-x-2">
 									<Button
@@ -474,7 +484,7 @@
 										<h4 class="scroll-m-20 text-xl font-bold tracking-tight">
 											{'Holo/Foil Cards'}
 										</h4>
-										<p class="font-normal leading-7 text-gray-300">
+										<p class="text-sm font-normal leading-7 text-gray-300">
 											{'Just like MTG and Pokemon, or any other trading card game, cards would ahve rarities, however, said rarity will only determine the status and style of card in play, power level itself is entirely independent. This also means no one card is tied to another. Making a deck would be like brewing a potion.'}
 										</p>
 									</div>
@@ -502,7 +512,7 @@
 									<h4 class="scroll-m-20 text-xl font-bold tracking-tight">
 										{'Small portion'}
 									</h4>
-									<p class="font-normal leading-7 text-gray-300">
+									<p class="text-sm font-normal leading-7 text-gray-300">
 										{'This game is not fully complete and new rules and cards are figured out every day. The game is focused on being competeive and fair no matter how rich you are. These are only a small portion of both complete and incomplete cards.'}
 									</p>
 								</div>
@@ -529,7 +539,7 @@
 									<h4 class="scroll-m-20 text-xl font-bold tracking-tight">
 										{'Dynamic Gameplay'}
 									</h4>
-									<p class="font-normal leading-7 text-gray-300">
+									<p class="text-sm font-normal leading-7 text-gray-300">
 										{'There are features to this game that I like to call dynamic. They spice the game up without having the user do anything, this howwever does not mean that the user has no influence on said effects. For example Sanity and Rage similar to that of Darkest Dungeon.'}
 									</p>
 								</div>
@@ -560,7 +570,7 @@
 										<div style="display: flex; flex-direction: column; gap: 20px;">
 											<div class="gif-row">
 												{#if !imageLoadedStates[featureIndex][0]}
-													<Skeleton class="h-[300px] w-[500px] rounded-md" />
+													<Skeleton class="h-[100px] w-[200px] rounded-md" />
 												{/if}
 												<img
 													src={keyFeature.gifPaths[0]}
@@ -574,10 +584,10 @@
 											<div class="desc-row">
 												<ScrollArea class="h-full w-full rounded-md border">
 													<div class="p-4">
-														<h4 class="scroll-m-20 text-xl font-bold tracking-tight">
+														<h4 class="text-md scroll-m-20 font-bold tracking-tight">
 															{keyFeature.title}
 														</h4>
-														<p class="font-normal leading-7 text-gray-300">
+														<p class="text-sm font-normal leading-7 text-gray-300">
 															{keyFeature.description}
 														</p>
 													</div>
@@ -589,7 +599,7 @@
 											{#each keyFeature.gifPaths as gifPath, index}
 												<div class="gif">
 													{#if !imageLoadedStates[featureIndex][index]}
-														<Skeleton class="h-[300px] w-[500px] rounded-md" />
+														<Skeleton class="h-[100px] w-[200px] rounded-md" />
 													{/if}
 													<img
 														src={gifPath}
@@ -610,10 +620,10 @@
 								<div class="key-feature">
 									<ScrollArea class="h-full w-full rounded-md border">
 										<div class="p-4">
-											<h4 class="scroll-m-20 text-xl font-bold tracking-tight">
+											<h4 class="text-md scroll-m-20 font-bold tracking-tight">
 												{keyFeature.title}
 											</h4>
-											<p class="font-normal leading-7 text-gray-300">
+											<p class="text-sm font-normal leading-7 text-gray-300">
 												{keyFeature.description}
 											</p>
 										</div>

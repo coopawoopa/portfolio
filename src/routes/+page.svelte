@@ -565,7 +565,7 @@
 				align: 'start',
 				loop: true
 			}}
-			class="mx-auto w-[90%]"
+			class="mx-auto w-[100%]  sm:w-[100%]  md:w-[100%] lg:w-[90%]"
 		>
 			<Carousel.Content class="-ml-2 md:-ml-4">
 				{#each projects as project}

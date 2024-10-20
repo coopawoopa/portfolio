@@ -59,10 +59,11 @@
 
 <Proximityglow>
 	<div
-		class="card group relative h-[500px] max-w-[350px] overflow-hidden rounded-xl bg-neutral-950"
+		class="card group relative h-[360px] max-w-[350px] overflow-hidden rounded-xl bg-neutral-950 sm:h-[500px] md:h-[500px] lg:h-[500px]"
 		bind:this={cardElement}
 		on:mousemove={handleMouseMove}
 		on:mouseleave={handleMouseLeave}
+		role="group"
 		style="transform: perspective(800px) rotateX({rotationX}deg) rotateY({rotationY}deg) scale({scale});
 			 transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 			 box-shadow: {shadowX}px {shadowY}px 50px rgba(0, 0, 0, 0.2);"
@@ -86,13 +87,13 @@
 				<img
 					src={thumbnail}
 					alt="Project Thumbnail"
-					class="h-52 w-full rounded-xl object-cover opacity-75"
+					class="h-36 w-full rounded-xl object-cover opacity-75 sm:h-52 md:h-52 lg:h-52"
 				/>
 				<div class="flex flex-row items-center justify-between pt-2">
-					<h3 class="text-xl font-semibold text-neutral-200">{title}</h3>
-					<p class="select-none text-[13px] text-neutral-300">{date}</p>
+					<h3 class="text-[15px] font-semibold text-neutral-200 sm:text-xl">{title}</h3>
+					<p class="select-none text-[9px] text-neutral-300 sm:text-[13px]">{date}</p>
 				</div>
-				<p class="line-clamp-3 pb-3 text-sm leading-[1.5] text-neutral-400">
+				<p class="line-clamp-3 pb-3 text-[11px] leading-[1.5] text-neutral-400 sm:text-sm">
 					{overview.length > 100 ? `${overview.slice(0, 100)}...` : overview}
 				</p>
 			</div>
@@ -126,7 +127,6 @@
 		flex-direction: column;
 		align-items: center;
 		position: relative;
-		height: 500px;
 	}
 
 	.card:hover {
@@ -172,5 +172,11 @@
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
+	}
+
+	@media (min-width: 768px) {
+		.card {
+			margin: 16px;
+		}
 	}
 </style>

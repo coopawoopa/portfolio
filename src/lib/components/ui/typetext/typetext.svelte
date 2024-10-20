@@ -25,10 +25,12 @@
 	});
 </script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <div class="relative inline-block">
 	<div class="inline-block align-middle">
 		{#key index}
-			<h1 class=" text-4xl font-bold" transition:slide>
+			<h1 class=" text-3xl font-bold sm:text-4xl md:text-4xl lg:text-4xl" transition:slide>
 				{greetings[index]}
 			</h1>
 		{/key}
