@@ -579,11 +579,14 @@
 			<Carousel.Next />
 		</Carousel.Root>
 		<Separator class="my-4" style="margin-top: 100px" />
+		{#if $isDesktop}
+			<div class="flex w-[90%] justify-end pt-[20px]">
+				<DivHover />
+			</div>
+		{/if}
 	</div>
 	{#if $isDesktop}
-		<div class="my-details">
-			<DivHover />
-		</div>
+		<div class=""></div>
 	{:else}
 		<div class="my-details">
 			<div class="m-1 flex items-center justify-between gap-3 rounded-full">
@@ -631,6 +634,12 @@
 		background-color: #f9f9f900;
 		padding: 20px;
 		padding-top: 100px;
+	}
+
+	.container2 {
+		display: flex;
+		flex-direction: column;
+		background-color: #f9f9f900;
 	}
 
 	.my-details {

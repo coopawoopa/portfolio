@@ -12,12 +12,12 @@
 		hidden: { opacity: 0, x: -20 },
 		visible: { opacity: 1, x: 0 }
 	};
-	let wordsspilit = words.split('');
+	let wordssplit = words.split('');
 </script>
 
 <div class="flex justify-center space-x-1">
-	<AnimatePresence let:item list={[{ key: wordsspilit }]}>
-		{#each wordsspilit as char, i}
+	<AnimatePresence let:item list={[{ key: wordssplit }]}>
+		{#each wordssplit as char, i}
 			<Motion
 				initial="hidden"
 				animate="visible"
@@ -29,7 +29,7 @@
 				}}
 				let:motion
 			>
-				<span use:motion class={cn('drop-shadow-sm', className)}>
+				<span use:motion class={cn('gradient-text drop-shadow-sm', className)}>
 					{#if char === ' '}
 						<span>&nbsp;</span>
 					{:else}
@@ -40,3 +40,20 @@
 		{/each}
 	</AnimatePresence>
 </div>
+
+<style>
+	@keyframes gradient {
+		0% {
+			background: linear-gradient(90deg, #ff7e5f, #feb47b);
+			-webkit-background-clip: text;
+			color: transparent;
+		}
+		100% {
+			color: white;
+		}
+	}
+
+	.gradient-text {
+		animation: gradient 1s ease forwards;
+	}
+</style>
