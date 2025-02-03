@@ -78,7 +78,7 @@
 		{
 			title: 'Current: Anichapter',
 			overview:
-				'Anichapter is a manga and chapter rating website aiming to provide a platform to rate individual chapters of manga similar to how movies are rated on IMDB. It is developed with a focus on simplicity. The website domain name has already been registered at anichapter.com.',
+				'Anichapter is a manga and chapter rating website aiming to provide a platform to rate individual chapters of manga similar to how movies are rated on IMDB. It is developed in the svelte framework, and the focus is on simplicity. The website domain name has already been registered at anichapter.com.',
 			videoPath: '',
 			keyFeatures: [
 				{
@@ -610,6 +610,7 @@
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 	.features-and-gifs {
 		display: flex;
 		gap: 10px;
